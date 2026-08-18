@@ -18,6 +18,8 @@ on:
 # in this file!
 
 env:
+  RENDEZVOUS_SERVER: "remote.handy.pub"
+  RS_PUB_KEY: "1JR78sa3x9Gav2f+dPDyBge8qbEfgxfNjRFHO9fhUv8="
   SCITER_RUST_VERSION: "1.75" # https://github.com/rustdesk/rustdesk/discussions/7503, also 1.78 has ABI change which causes our sciter version not working, https://blog.rust-lang.org/2024/03/30/i128-layout-update.html
   RUST_VERSION: "1.75" # sciter failed on m1 with 1.78 because of https://blog.rust-lang.org/2024/03/30/i128-layout-update.html
   MAC_RUST_VERSION: "1.81" # 1.81 is requred for macos, because of https://github.com/yury/cidre requires 1.81
@@ -63,6 +65,9 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
 
       - name: Install Syft
         uses: anchore/sbom-action/download-syft@v0
@@ -145,6 +150,9 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
 
       - name: Restore bridge files
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -437,6 +445,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
+
       - name: Install LLVM and Clang
         uses: rustdesk-org/install-llvm-action-32bit@6aa7d9ad3df84dff01cd4596dd0fc880a7f47fce # no release tag; commit 2026-05-26
         with:
@@ -588,6 +599,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
+
       - name: Install flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
@@ -714,6 +728,9 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
 
       - name: Import the codesign cert
         if: env.MACOS_P12_BASE64 != null
@@ -1030,6 +1047,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
+
       - name: Install flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
@@ -1304,6 +1324,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
+
       - name: Install flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
@@ -1470,6 +1493,9 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
 
       - name: Set Swap Space
         if: ${{ matrix.job.arch == 'x86_64' }}
@@ -1790,6 +1816,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
+
       - name: Set Swap Space
         uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c # v1.0
         with:
@@ -2071,6 +2100,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
+
       - name: Modify vcpkg.json for armv7
         if: matrix.job.vcpkg-triplet == 'arm-linux'
         run: |
@@ -2273,6 +2305,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
+
       - name: Download Binary
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
@@ -2347,6 +2382,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
+
       - name: Download Binary
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
@@ -2407,6 +2445,9 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply self-hosted server configuration
+        run: git -C libs/hbb_common apply ../../.github/patches/hbb-common-self-hosted.patch
 
       - name: Prepare env
         run: |
